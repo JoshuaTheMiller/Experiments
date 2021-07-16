@@ -158,7 +158,7 @@ resource "aws_instance" "web" {
 
   iam_instance_profile = aws_iam_instance_profile.codedeploy_profile.name
 
-  key_name = module.key_pair.this_key_pair_key_name
+  key_name = module.key_pair.key_pair_key_name
 
   user_data = file("start.sh")
 
