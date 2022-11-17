@@ -7,6 +7,8 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@azure/msal-browser": "^2.31.0",
+    "@azure/msal-react": "^1.4.10",
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

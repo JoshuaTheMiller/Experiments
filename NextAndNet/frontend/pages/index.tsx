@@ -1,13 +1,64 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import {
+  AuthenticatedTemplate,
+  UnauthenticatedTemplate,
+  useMsal,
+} from '@azure/msal-react';
+import { useEffect, useState } from 'react';
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">About</Link>
-    </p>
-  </Layout>
-)
+function SignInButton() {  
+  const { instance } = useMsal();
 
-export default IndexPage
+  const signInFunc = async () => {        
+    const accounts = instance.getAllAccounts();
+    if (accounts.length === 0) {
+        // No user signed in
+        instance.loginRedirect();
+    }
+  }
+
+  return (    
+    <button onClick={signInFunc}>Sign In</button>  
+  );
+}
+
+function WelcomeUser() {
+  const { accounts } = useMsal();
+  const username = accounts[0].username;
+
+  return <p>Welcome, {username}</p>;
+}
+
+function IndexPage() {  
+  const { instance } = useMsal();
+
+  const [isPrepped, setIsPrepped] = useState(false)  
+
+  useEffect(() => {   
+    console.log("Prepping") 
+    instance.handleRedirectPromise()
+    .then(() => {
+      setIsPrepped(true);
+      console.log("Prepped!");
+    })
+    .catch(() => console.log("sad"))   
+  }, [])
+
+  if (!isPrepped) return <p>Loading...</p>  
+
+  return (  
+    <>
+      <h1>Hello!</h1>
+
+      <AuthenticatedTemplate>
+        <p>This will only render if a user is signed-in.</p>
+        <WelcomeUser />
+      </AuthenticatedTemplate>
+      <UnauthenticatedTemplate>
+        <p>This will only render if a user is not signed-in.</p>    
+        { isPrepped ? <SignInButton/> : <></>}               
+      </UnauthenticatedTemplate>
+    </>  
+  );
+}
+
+export default IndexPage;
