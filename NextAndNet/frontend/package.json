@@ -7,9 +7,8 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@azure/msal-browser": "^2.31.0",
-    "@azure/msal-react": "^1.4.10",
     "next": "latest",
+    "next-auth": "^4.16.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -20,6 +19,6 @@
     "typescript": "^4.8.3"
   },
   "engines": {
-    "node": ">=19"
+    "node": ">=18"
   }
 }
