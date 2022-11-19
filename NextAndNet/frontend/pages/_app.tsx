@@ -3,11 +3,22 @@ import Head from 'next/head';
 import { MantineProvider, AppShell } from '@mantine/core';
 import { SessionProvider } from "next-auth/react"
 import Layout from '../components/Layout';
+import { CustomHeader } from '../components/CustomHeader';
+import { CustomFooter } from '../components/CustomFooter';
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
 
   const { session, pageProps: actualProps } = pageProps;
+
+  const header = (<CustomHeader links={[
+    {
+      label: "Home",
+      link: "/"
+    }
+  ]} />);
+
+  const footer = (<CustomFooter links={[]} />);
 
   return (
     <>
@@ -22,14 +33,13 @@ export default function App(props: AppProps) {
           withNormalizeCSS
           theme={{
             /** Put your mantine theme override here */
-            colorScheme: 'light',
+            colorScheme: 'dark',
           }}
         >
-          <Layout>
-            <AppShell>
-              <Component {...actualProps} />
-            </AppShell>
-          </Layout>
+          <AppShell header={header}
+                    footer={footer} >
+            <Component {...actualProps} />
+          </AppShell>
         </MantineProvider>
       </SessionProvider>
     </>
