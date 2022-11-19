@@ -22,7 +22,11 @@ async function sendRequest<TBody, TResponse>(req: NextApiRequest, route:string, 
         }
     })
 
-    return response;  
+    if(!response.ok) {
+        return "Nope";
+    }        
+
+    return await response.text() as TResponse;
 }
 
 export default sendRequest
