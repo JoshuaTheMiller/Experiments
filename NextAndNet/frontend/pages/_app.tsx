@@ -1,6 +1,6 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { MantineProvider, AppShell } from '@mantine/core';
+import { MantineProvider, AppShell, Container } from '@mantine/core';
 import { SessionProvider } from "next-auth/react"
 import { CustomHeader } from '../components/CustomHeader';
 import { CustomFooter } from '../components/CustomFooter';
@@ -31,7 +31,7 @@ export default function App(props: AppProps) {
         <title>{title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>  
+      </Head>
 
       <SessionProvider session={session}>
         <MantineProvider
@@ -43,8 +43,10 @@ export default function App(props: AppProps) {
           }}
         >
           <AppShell header={header}
-                    footer={footer} >
-            <Component {...actualProps} />
+            footer={footer} >
+            <Container>
+              <Component {...actualProps} />
+            </Container>
           </AppShell>
         </MantineProvider>
       </SessionProvider>
