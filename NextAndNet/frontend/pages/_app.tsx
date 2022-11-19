@@ -2,7 +2,6 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { MantineProvider, AppShell } from '@mantine/core';
 import { SessionProvider } from "next-auth/react"
-import Layout from '../components/Layout';
 import { CustomHeader } from '../components/CustomHeader';
 import { CustomFooter } from '../components/CustomFooter';
 
@@ -10,6 +9,8 @@ export default function App(props: AppProps) {
   const { Component, pageProps } = props;
 
   const { session, pageProps: actualProps } = pageProps;
+
+  const title = actualProps?.title ?? "Hello!";
 
   const header = (<CustomHeader links={[
     {
@@ -23,9 +24,10 @@ export default function App(props: AppProps) {
   return (
     <>
       <Head>
-        <title>Page title</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-      </Head>
+        <title>{title}</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>  
 
       <SessionProvider session={session}>
         <MantineProvider
