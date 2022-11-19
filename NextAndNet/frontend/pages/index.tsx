@@ -1,10 +1,7 @@
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import LoginButton from '../components/LoginButton';
 
 function IndexPage() {
-  const [isPrepped, setIsPrepped] = useState(false)
-
   const { data: session } = useSession();
 
   const [text, setText] = useState("");

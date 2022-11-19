@@ -16,6 +16,10 @@ export default function App(props: AppProps) {
     {
       label: "Home",
       link: "/"
+    },
+    {
+      label: "About",
+      link: "/about"
     }
   ]} />);
 

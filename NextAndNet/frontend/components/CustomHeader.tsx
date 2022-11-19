@@ -4,6 +4,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { MantineLogo } from '@mantine/ds';
 import { useSession } from 'next-auth/react';
 import LoginButton from './LoginButton';
+import Link from 'next/link';
 
 const useStyles = createStyles((theme) => ({
     header: {
@@ -59,17 +60,18 @@ export function CustomHeader({ links }: HeaderSimpleProps) {
 
 
     const items = links.map((link) => (
-        <a
+        <Link
             key={link.label}
             href={link.link}
             className={cx(classes.link, { [classes.linkActive]: active === link.link })}
             onClick={(event) => {
-                event.preventDefault();
+                // Why did I need to comment this out?
+                // event.preventDefault();
                 setActive(link.link);
             }}
         >
             {link.label}
-        </a>
+        </Link>
     ));
 
     items.push(<LoginButton/>)
