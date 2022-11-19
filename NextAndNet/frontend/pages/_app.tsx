@@ -1,15 +1,18 @@
 import { SessionProvider } from "next-auth/react"
 import type { AppProps } from 'next/app'
+import Layout from "../components/Layout";
 
 // https://nextjs.org/docs/advanced-features/custom-app
 // https://nextjs.org/docs/basic-features/typescript#custom-app
 function MyApp({ Component, pageProps }: AppProps) {
-  
-  const {session, pageProps:actualProps} = pageProps;
+
+  const { session, pageProps: actualProps } = pageProps;
 
   return (
     <SessionProvider session={session}>
-      <Component {...actualProps} />
+      <Layout>
+        <Component {...actualProps} />
+      </Layout>
     </SessionProvider>
   )
 }
